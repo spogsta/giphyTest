@@ -6,19 +6,32 @@
 </head>
 <body>
   <img src="#" />
+  <button onClick="window.location.reload();">Refresh Page</button>
+  <label for="gsearch">Search Giphs!</label>
+  <input type="search" id="gsearch" name="gsearch"> 
+  <button onclick="apiSearchFunction()">giphy it up </button>
+  
   <script>
+apiSearch='cat'
+giphyAPI = `https://api.giphy.com/v1/gifs/translate?api_key=RXGBW1Cx51Xc2eXGn1sJLRTVh5qEw0nP&s=${apiSearch}`
 
-
+function apiSearchFunction(){
+  apiSearch=document.getElementById(`gsearch`).value
+  giphyAPI=`https://api.giphy.com/v1/gifs/translate?api_key=RXGBW1Cx51Xc2eXGn1sJLRTVh5qEw0nP&s=${apiSearch}`;
+}
 
 
 const img = document.querySelector('img');
-  fetch('https://api.giphy.com/v1/gifs/translate?api_key=RXGBW1Cx51Xc2eXGn1sJLRTVh5qEw0nP&s=cat', {mode: 'cors'})
+  fetch(giphyAPI, {mode: 'cors'})
     .then(function(response) {
       return response.json();
     })
     .then(function(response) {
       img.src = response.data.images.original.url;
-    });
+    })
+    .catch(
+      console.log("error")
+    );
   </script>
 </body>
 </html>
